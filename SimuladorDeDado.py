@@ -8,7 +8,7 @@ class SimuladorDeDados:
         
     layout = [
         [sg.Text('Jogar o dado?')],
-        [sg.Button('sim'), sg.Button('não')],
+        [sg.Button('sim'), sg.Button('Não')],
     ]
     def Iniciar(self):
         self.janela = sg.Window('Simulador de Dado', layout=self.layout)
@@ -16,7 +16,7 @@ class SimuladorDeDados:
         try:
             if self.eventos == 'sim' or self.eventos == 's':
                 self.GerarValorDoDado()
-            elif resposta == 'não' or resposta == 'n':
+            elif self.eventos =='Não' or self.eventos == 'n':
                 print('Agradeçemos sua participação!')
             else:
                 print('favor digitar sim ou não')
