@@ -1,4 +1,5 @@
 import random
+import PySimpleGUI as sg
 
 class ChuteONumero:
     def __init__(self):
@@ -13,20 +14,32 @@ class ChuteONumero:
     def PedirValorAleatorio(self):
         self.valor_do_chute = input('Chute um número: ')  
                
-    def Iniciar(self):
+    def Iniciar(self): 
+        layout = [
+            [sg.Text('Seu chute', size=(20,0))],
+            [sg.Input(size=(18,0),key='ValorChute')],
+            [sg.Button('Chutar!')],
+            [sg.Output(size=(20,10))],
+        ]
+        self.janela = sg.Window('Chute o número!', layout=layout)
+        
         self.GerarNumeroAleatorio()
         self.PedirValorAleatorio()
         try:
-            while self.TentarNovamente == True:
-                if int(self.valor_do_chute) > self.valor_aleatorio:
-                    print('Chute um valor mais baixo!')
-                    self.PedirValorAleatorio()
-                elif int(self.valor_do_chute) < self.valor_aleatorio:
-                    print('Chute valor mais alto!')
-                    self.PedirValorAleatorio()
-                if int(self.valor_do_chute) == self.valor_aleatorio:
-                    self.TentarNovamente = False
-                    print('Parabéns, você acertou!!!')
+            while true:
+                self.evento, self.valores = self.janela.Read()
+                self.valor_do_chute = self.valores
+            if self.evento == 'Chutar!':
+                while self.TentarNovamente == True:
+                    if int(self.valor_do_chute) > self.valor_aleatorio:
+                        print('Chute um valor mais baixo!')
+                        self.PedirValorAleatorio()
+                    elif int(self.valor_do_chute) < self.valor_aleatorio:
+                        print('Chute valor mais alto!')
+                        self.PedirValorAleatorio()
+                    if int(self.valor_do_chute) == self.valor_aleatorio:
+                        self.TentarNovamente = False
+                        print('Parabéns, você acertou!!!')
         except:
             print('Favor, digite apenas números!')
             self.Iniciar()
